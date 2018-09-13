@@ -1,0 +1,34 @@
+<%- include ../layouts/header.ejs %>
+
+            <h2>hy.money and cash_flow</h2>
+            <div class="dbPanel">            
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>bet_log id</th>
+                            <th>amount(bet_log)</th>
+                            <th>amount(cash_flow)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <% for (var i = 0; i < bet_log.length; i ++) {
+                                var sum_amnt = 0 
+                                for(var key in cash_amnt[i][0]){
+                                    if(cash_amnt[i][0][key])                     
+                                        sum_amnt = cash_amnt[i][0][key]
+                                }
+                                if(bet_log.amount != sum_amnt) {
+                            %> 
+                                <tr>
+                                    <td> <%= bet_log[i].id %> </td>
+                                    <td> <%= bet_log[i].bet_amount %></td>
+                                    <td> <%= sum_amnt %></td>                                
+                                </tr>
+                            <% }} %>                        
+                    </tbody>
+                </table>
+            </div>
+        <div>
+
+    </body>
+</html>

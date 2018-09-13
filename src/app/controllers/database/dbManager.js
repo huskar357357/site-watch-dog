@@ -5,7 +5,7 @@ function mapTenant(dbCon, sql, loop_ary, cb) {
     map(loop_ary, function iterator (each_ele, index, callback) {
         var sql_able = sql.replace('{}', each_ele)
         excuteQueryAsync(dbCon, sql_able, callback)
-    }, (err, result) => {        
+    }, (err, result) => {      
         if (err) return cb(err)   
         cb(err, result)
     })

@@ -58,16 +58,16 @@ module.exports = app => {
   })
 
   // go to check rule3 page
-  // app.get('/rule3', (req, res) => {
-  //     sql = "SELECT amount FROM cash_flow WHERE reference_id = (SELECT id FROM wallet_request WHERE bet_log_id = {}) AND action = 'third-party'"
-  //     database.mgState.excuteQueryAsync(conTenant, 'SELECT * FROM bet_log WHERE ((11 <= game_id AND game_id <= 28 AND game_id != 26) OR (66 <= game_id AND game_id <= 80) OR game_id = 34) AND '2018-08-01' <= updated_at', (err, result_bet_log) => {
-  //         database.mgState.mapTenant(conTenant, sql, utilState.getValuesByKey(result_bet_log, 'id'), (err, result_cash_amnt) => {
-  //             res.render('main/rule2', {
-  //                 bet_log: result_bet_log,
-  //                 cash_amnt: result_cash_amnt
-  //             });
-  //         });
-  //     });
-  // }) 
+  app.get('/rule3', (req, res) => {
+      sql = "SELECT amount FROM cash_flow WHERE reference_id = '{}' AND action = 'deductions' AND "  + stDate + " <= updated_at"
+      database.mgState.excuteQueryAsync(conTenant, "SELECT * FROM bet_log WHERE ((11 <= game_id AND game_id <= 28 AND game_id != 26) OR (66 <= game_id AND game_id <= 80) OR game_id = 34) AND " + stDate + " <= updated_at", (err, result_bet_log) => {
+          database.mgState.mapTenant(conTenant, sql, utilState.getValuesByKey(result_bet_log, 'id'), (err, result_cash_amnt) => {
+              res.render('main/rule3', {
+                  bet_log: result_bet_log,
+                  cash_amnt: result_cash_amnt
+              });
+          });
+      });
+  }) 
   
 };
