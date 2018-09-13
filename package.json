@@ -23,11 +23,12 @@
     "express": "^4.16.2",
     "http-hash-router": "^1.1.0",
     "less": "^3.8.1",
+    "lodash": "^4.17.11",
     "map-async": "^0.1.1",
     "mysql": "^2.15.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/herohuskar/wm/site-watch-dog.git"
+    "url": "git+https://gitlab.com/antman357/wm_watchdog.git"
   }
 }

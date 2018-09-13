@@ -1,0 +1,35 @@
+<%- include ../layouts/header.ejs %>
+
+            <h1>Compare BetLog amount with cash_flow amount by bet_log.id</h1>            
+
+            <h2>hy.money and cash_flow</h2>
+            <div class="dbPanel">            
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>bet_log id</th>
+                            <th>amount(bet_log)</th>
+                            <th>amount(cash_flow)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <% for (var i = 0; i < bet_log.length; i ++) { 
+                                for(var key in cash_amnt[i][0]){
+                                    if(cash_amnt[i][0][key])                     
+                                        sum_amnt = cash_amnt[i][0][key]
+                                    else sum_amnt = 0
+                                }
+                                if(bet_log.amount != sum_amnt) {
+                            %> 
+                                <tr>
+                                    <td> <%= bet_log[i].id %> </td>
+                                    <td> <%= bet_log[i].amount %></td>
+                                    <td> <%= sum_amnt %></td>                                
+                                </tr>
+                            <% }} %>                        
+                    </tbody>
+                </table>
+            </div>
+        <div>
+    </body>
+</html>
