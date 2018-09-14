@@ -1,56 +1,36 @@
-const mysql     = require('mysql');
-const statusStr = require('../.././resources/stats');
+const mysql     = require('mysql')
+const statusStr = require('../.././resources/stats')
 
+// server side connection
 var db_config_tenant = {
     host: 'localhost',
+    port: 3306,
     user: 'root',
     password: 'root',
     database: 'tenant_aa'
 };
 
-var db_config_here = {
+// here connection
+var db_config_clone = {
     host: 'localhost',
+    port: 3306,
     user: 'root',
     password: 'root',
     database: 'clone_db'
 };
 
-function handleDisconnect() {
-    conTenant = mysql.createConnection(db_config_tenant); 
-    conHere   = mysql.createConnection(db_config_here); 
-
-    conTenant.connect((err) => {              
-        if(err) {                                     
-            console.log(db_config_tenant.host, db_config_tenant.database, statusStr.state.connectionErr);
-            setTimeout(handleDisconnect, 2000); 
-        }                                     
-    });   
-
-    conHere.connect((err) => {              
-        if(err) {                                     
-            console.log(db_config_here.host, db_config_here.database, statusStr.state.connectionErr);
-            setTimeout(handleDisconnect, 2000); 
-        }                                     
-    });                                  
-
-    conTenant.on('error', (err) => {
+function getDBConnection(config) {
+    const con = mysql.createConnection(db_config_clone)
+    con.on('error', (err) => {
         if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
-            handleDisconnect();                         
+            getDBConnection()                         
         } else {                                      
-            throw err;                                  
+            throw err                                  
         }
-    });
-
-    conHere.on('error', (err) => {
-        if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
-            handleDisconnect();                         
-        } else {                                      
-            throw err;                                  
-        }
-    });
-
-    module.exports.conTenant = conTenant;
-    module.exports.conHere = conHere;
+    }) 
+    return con   
 }
 
-handleDisconnect();
+module.exports.db_config_tenant = db_config_tenant
+module.exports.db_config_clone  = db_config_clone
+module.exports.getDBConnection  = getDBConnection

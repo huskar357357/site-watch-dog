@@ -39,11 +39,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <% for (var i = 0; i < here_data.length; i ++) { 
-                            %> <tr> <th scope="row"><%= here_data[i].id %> </th> <%                                    
-                                for (var j in here_data[i]) { 
-                                    if(here_data[i].hasOwnProperty(j)) {
-                                        var propValue = here_data[i][j];
+                        <% for (var i = 0; i < clone_data.length; i ++) { 
+                            %> <tr> <th scope="row"><%= clone_data[i].id %> </th> <%                                    
+                                for (var j in clone_data[i]) { 
+                                    if(clone_data[i].hasOwnProperty(j)) {
+                                        var propValue = clone_data[i][j];
                                             if(j == 'deleted_at' || j == 'created_at' || j == 'updated_at' || j == 'bet_at' || j == 'settled_at') propValue = JSON.stringify(propValue)
                                     %><td><%= propValue %></td>                                        
                                 <% }} %> </tr> <%

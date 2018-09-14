@@ -12,7 +12,7 @@ function mapTenant(dbCon, sql, loop_ary, cb) {
 }
 
 // query excution
-function excuteQueryAsync(dbCon, sql, cb) {            
+function excuteQueryAsync(dbCon, sql, cb) {           
     dbCon.query(sql, (err, result) => {
         if (err) return cb(err)
         cb(err, result)
