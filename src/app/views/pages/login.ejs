@@ -1,0 +1,51 @@
+<%- include ../layouts/header.ejs %>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-4">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Please Sign In</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    </div>                                                                       
+                                    <% if (isLoginWin === false) { %>
+                                        <div class="form-group">
+                                            <label></label>                                        
+                                        </div>
+                                        <div class="form-group">
+                                            <label> Remember Me </label> 
+                                            <label class="switch">
+                                                <input type="checkbox">                                            
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div> 
+                                        <a href="/login" id="loginBtn" class="btn btn-lg btn-success btn-block"> LOG IN </a>
+                                    <% }else{ %>
+                                        <div class="form-group">
+                                            <label></label>                                        
+                                        </div> 
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Password Again" name="password" type="password" value="">
+                                        </div> 
+                                        <a href="/login" id="/signup" class="btn btn-lg btn-success btn-block"> SIGN UP </a>
+                                    <% } %>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/metisMenu.min.js"></script>
+        <script src="../js/startmin.js"></script>               
+    </body>
+</html>

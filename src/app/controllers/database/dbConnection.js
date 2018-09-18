@@ -4,7 +4,7 @@ const statusStr = require('../.././resources/stats')
 // server side connection
 var db_config_tenant = {
     host: 'localhost',
-    port: 3306,
+    //port: 3306,
     user: 'root',
     password: 'root',
     database: 'tenant_aa'
@@ -13,17 +13,17 @@ var db_config_tenant = {
 // here connection
 var db_config_clone = {
     host: 'localhost',
-    port: 3306,
+    //port: 3306,
     user: 'root',
     password: 'root',
     database: 'clone_db'
 };
 
-function getDBConnection(config) {
-    const con = mysql.createConnection(db_config_clone)
+function getDBCon(config) {
+    const con = mysql.createConnection(config)
     con.on('error', (err) => {
         if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
-            getDBConnection()                         
+            getDBCon(config)                         
         } else {                                      
             throw err                                  
         }
@@ -33,4 +33,4 @@ function getDBConnection(config) {
 
 module.exports.db_config_tenant = db_config_tenant
 module.exports.db_config_clone  = db_config_clone
-module.exports.getDBConnection  = getDBConnection
+module.exports.getDBCon  = getDBCon
