@@ -1,3 +1,9 @@
+////////////////////////////////////////////////
+//                                            //
+//         This is my own DB Manager          //
+//                                            //
+////////////////////////////////////////////////
+
 const map  = require('map-async')
 const _    = require('lodash')
 const util = require('../utility')
@@ -22,11 +28,11 @@ function mapQuery(dbCon, sql, loop_ary, cb) {
 
 // insert map data in to the given table
 function mapInsData(dbCon, sql, arry, cb) {
-    var cnt_1 = 0 
-    map(arry, function iterator (each_ele, index, callback) {
+    var cnt_1 = 0
+    _.forEach(arry, function (value_ary, key) {
         var cnt_2 = 0
         sql += cnt_1 === 0 ? '(' : ', ('
-        _.forEach(each_ele, (value) => {
+        _.forEach(value_ary, (value) => {
             sql += cnt_2 === 0 ? '' : ','
             sql += handleException(value)
             cnt_2 ++            
@@ -34,9 +40,9 @@ function mapInsData(dbCon, sql, arry, cb) {
         sql += ')\n'   
         cnt_1 ++ 
     })   
-    exQuery(dbCon, sql, (err) => {      
+    exQuery(dbCon, sql, (err, result) => {      
         if (err) return cb(err)   
-        cb(err)
+        cb(err, result)
     })
 }
 
@@ -48,69 +54,69 @@ function handleException(value){
 // insert record with not matching each other  ----- for rule11
 function mapInsDiffQuery11(dbCon, sql, arry1, arry2, cb) { 
     var cnt = 0       
-    map(arry1, function iterator (each_ele, index, callback) {
-        for(var key in arry2[index][0]){
-            if(arry2[index][0][key])                     
-                sum_amnt = arry2[index][0][key]
+    for (var i = 0; i < arry1.length; i++) {
+        for(var key in arry2[i][0]){
+            if(arry2[i][0][key])                     
+                sum_amnt = arry2[i][0][key]
             else sum_amnt = 0
         }
-        if(each_ele.money != sum_amnt) {
+        if(arry1[i].money != sum_amnt) {
             if(cnt === 0)
-                sql += `('${each_ele.uid}', '${each_ele.money}', '${sum_amnt}', '${each_ele.nickname}')`
+                sql += `('${arry1[i].uid}', '${arry1[i].money}', '${sum_amnt}', '${arry1[i].nickname}')`
             else
-                sql += `, ('${each_ele.uid}', '${each_ele.money}', '${sum_amnt}', '${each_ele.nickname}')`
+                sql += `, ('${arry1[i].uid}', '${arry1[i].money}', '${sum_amnt}', '${arry1[i].nickname}')`
             cnt++
         }
-    })
-    exQuery(dbCon, sql, (err) => {      
+    }
+    exQuery(dbCon, sql, (err, result) => {      
         if (err) return cb(err)   
-        cb(err)
+        cb(err, result)
     })
 }
 
 // insert record with not matching each other  ----- for rule12
 function mapInsDiffQuery12(dbCon, sql, arry1, arry2, cb) {
     var cnt = 0       
-    map(arry1, function iterator (each_ele, index, callback) {
-        for(var key in arry2[index][0]){
-            if(arry2[index][0][key])                     
-                sum_amnt = arry2[index][0][key]
+    for (var i = 0; i < arry1.length; i++) {
+        for(var key in arry2[i][0]){
+            if(arry2[i][0][key])                     
+                sum_amnt = arry2[i][0][key]
             else sum_amnt = 0
         }
-        if(each_ele.return_money != sum_amnt) {
+        if(arry1[i].return_money != sum_amnt) {
             if(cnt === 0)
-                sql += `('${each_ele.uid}', '${each_ele.return_money}', '${sum_amnt}', '${each_ele.nickname}')`
+                sql += `('${arry1[i].uid}', '${arry1[i].return_money}', '${sum_amnt}', '${arry1[i].nickname}')`
             else
-                sql += `, ('${each_ele.uid}', '${each_ele.return_money}', '${sum_amnt}', '${each_ele.nickname}')`
+                sql += `, ('${arry1[i].uid}', '${arry1[i].return_money}', '${sum_amnt}', '${arry1[i].nickname}')`
             cnt++
         }
-    })
-    exQuery(dbCon, sql, (err) => {      
+    }
+    exQuery(dbCon, sql, (err, result) => {      
         if (err) return cb(err)   
-        cb(err)
+        cb(err, result)
     })
 }
 
 // insert record with not matching each other  ----- for rule2, 3
 function mapInsDiffQuery23(dbCon, sql, arry1, arry2, cb) {
     var cnt = 0       
-    map(arry1, function iterator (each_ele, index, callback) {
-        for(var key in arry2[index][0]){
-            if(arry2[index][0][key])                     
-                sum_amnt = arry2[index][0][key]
+    for (var i = 0; i < arry1.length; i++) {
+        for(var key in arry2[i][0]){
+            if(arry2[i][0][key])                     
+                sum_amnt = arry2[i][0][key]
             else sum_amnt = 0
         }
-        if(each_ele.amount != sum_amnt) {
+        if(arry1[i].amount != sum_amnt) {
             if(cnt === 0)
-                sql += `('${each_ele.id}', '${each_ele.uid}', '${each_ele.bet_amount}', '${sum_amnt}', '${each_ele.nickname}')`
+                sql += `('${arry1[i].id}', '${arry1[i].uid}', '${arry1[i].bet_amount}', '${sum_amnt}', '${arry1[i].nickname}')`
             else
-                sql += `, ('${each_ele.id}', '${each_ele.uid}', '${each_ele.bet_amount}', '${sum_amnt}', '${each_ele.nickname}')`
+                sql += `, ('${arry1[i].id}', '${arry1[i].uid}', '${arry1[i].bet_amount}', '${sum_amnt}', '${arry1[i].nickname}')`
             cnt++
         }
-    })
-    exQuery(dbCon, sql, (err) => {      
+    }
+    exQuery(dbCon, sql, (err, result) => {      
         if (err) return cb(err)   
-        cb(err)
+        cb(err, result)
     })
 }
 

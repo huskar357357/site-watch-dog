@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <style>
+      .con{
+          border: 1px solid black;
+          border-collapse: collapse;
+          text-align: center;
+          font-family:Comic Sans MS, cursive, sans-serif; font-size:10pt;
+          color: black;
+      }
+    </style>
+  </head>
+  <body>
+  <div>
+  <table style="font-family:Verdana, sans-serif; margin-bottom: 20" class="ng-scope" cellspacing="10" cellpadding="0">
+   <tbody>
+    <tr>
+     <td style="width:140px; padding:0; text-align:center; vertical-align:middle;" width="200" valign="middle">
+      <img ng-if="showField('photo')" ng-src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/photo.png" alt="photograph" style="width:150px; height:150px; border-radius:75px; border:0;" class="ng-scope" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvujstB2gI4PdIH7-5RdyVOo8i02YQegVFd71I-LMtTWe3Jqbn" width="100" height="100" border="0">
+     </td>
+     <td style="border-bottom:2px solid; border-bottom-color:#ed5a24; padding:0; vertical-align:top;" valign="top"> 
+      <table style="font-family:Verdana, sans-serif;" cellspacing="0" cellpadding="0">
+       <tbody>
+        <tr>
+         <td style="font-family:Verdana, sans-serif; color:#ed5a24; padding-bottom:10px; padding-top:0; padding-left:20; padding-right:0; vertical-align:top;" valign="top">
+          <strong><span style="font-family:Comic Sans MS, cursive, sans-serif; color:#ed5a24; font-size:14pt; font-style:italic;" class="ng-binding">Wechat Casino</span></strong><br>
+        <span style="font-family:Comic Sans MS, cursive, sans-serif; color:#ed5a24; font-size:10pt;" ng-if="showField('title')" class="ng-binding ng-scope">Bad Behaviour Is Detected</span> 
+         </td>      
+        </tr> 
+        <tr ng-if="isAnyFieldEntered('email, mobile, phone')" class="ng-scope">     
+         <td style="font-family:Verdana, sans-serif; color:#444444; padding-bottom:6px; padding-top:0; padding-left:20; padding-right:0; line-height:18px; vertical-align:top;" valign="top">    
+          <span style="font-family:Comic Sans MS, cursive, sans-serif; color:#444444; font-size:10pt;" ng-if="showField('email')" class="ng-binding ng-scope">email: antman357357@gmail.com<br> </span>       
+          <span style="font-family:Comic Sans MS, cursive, sans-serif; color:#444444; font-size:10pt;" ng-if="showField('phone')" class="ng-binding ng-scope">phone: + 1 23 456 7890 <span ng-if="showField('mobile')" style="font-family:Comic Sans MS, cursive, sans-serif; font-size:10pt;" class="ng-scope"> | </span></span> 
+          <span style="font-family:Comic Sans MS, cursive, sans-serif; color:#444444; font-size:10pt;" ng-if="showField('mobile')" class="ng-binding ng-scope">mobile: + 1 23 456 7890 </span> 
+         </td>
+        </tr>
+        <tr ng-if="isAnyFieldEntered('company, address1, address2')" class="ng-scope">     
+         <td style="font-family:Verdana, sans-serif; color:#444444;  padding-bottom:6px; padding-top:0; padding-left:20; padding-right:0; line-height:18px; vertical-align:top;" valign="top">    
+          <span style="font-family:Comic Sans MS, cursive, sans-serif; color:#444444; font-size:10pt;" ng-if="showField('company')" class="ng-binding ng-scope">WM Casino, </span> 
+          <span style="font-family:Comic Sans MS, cursive, sans-serif; color:#444444; font-size:10pt;" ng-if="showField('address1')" class="ng-binding ng-scope">Sihnanoukville, Cambodia</span>     
+         </td>
+        </tr>
+       </tbody>
+      </table>                
+     </td>  
+    </tr>
+    <tr>
+     <td style="font-family:Comic Sans MS, cursive, sans-serif; width:140px; padding-top:6px; padding-left:0; padding-right:0; text-align:center; vertical-align:middle;" width="140" valign="middle">  
+        <span ng-if="showField('facebookURL')" class="ng-scope"><a href="https://www.facebook.com/CodeTwo" target="_blank" rel="noopener"><img ng-src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/fb.png" alt="facebook icon" style="border:0; height:16px; width:16px" src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/fb.png" width="16" border="0"></a>&nbsp;</span>
+        <span ng-if="showField('twitterURL')" class="ng-scope"><a href="https://twitter.com/CodeTwoSoftware" target="_blank" rel="noopener"><img ng-src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/tt.png" alt="twitter icon" style="border:0; height:16px; width:16px" src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/tt.png" width="16" border="0"></a>&nbsp;</span>
+        <span ng-if="showField('youtubeURL')" class="ng-scope"><a href="https://www.youtube.com/user/CodeTwoChannel" target="_blank" rel="noopener"><img ng-src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/yt.png" alt="youtube icon" style="border:0; height:16px; width:16px" src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/yt.png" width="16" border="0"></a>&nbsp;</span>
+        <span ng-if="showField('linkedinURL')" class="ng-scope"><a href="https://www.linkedin.com/company/codetwo" target="_blank" rel="noopener"><img ng-src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/ln.png" alt="linkedin icon" style="border:0; height:16px; width:16px" src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/ln.png" width="16" border="0"></a>&nbsp;</span>
+        <span ng-if="showField('gplusURL')" class="ng-scope"><a href="https://plus.google.com/+CodeTwoSoftware" target="_blank" rel="noopener"><img ng-src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/gp.png" alt="google plus icon" style="border:0; height:16px; width:16px" src="https://codetwocdn.azureedge.net/images/mail-signatures/generator/photo2/gp.png" width="16" border="0"></a>&nbsp;</span>      
+     </td>
+     <td style="padding-bottom:0; padding-left:0; padding-right:0; vertical-align:middle;" valign="middle">
+      <a href="http://lx.wm6688.net" target="_blank" rel="noopener" style=" text-decoration:none;"><span style="color:#ed5a24; font-family:Verdana, sans-serif; font-size:10pt"><span style="color:#ed5a24; font-family:Comic Sans MS, cursive, sans-serif; font-size:10pt" class="ng-binding">lx.wm6688.net</span></span></a>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <span style="margin-top: 10px; margin-left: 200px; font-family:Comic Sans MS, cursive, sans-serif; color:black; font-size:10pt;"> Warning Table <span>
+  <table style="margin-bottom: 10px" class="con" cellspacing="0" cellpadding="0" valign="middle" width="500">
+      <thead class="con">
+        <tr>
+            <th class="con">body</th>
+            <th class="con">uid</th>
+            <th class="con">nickname</th>
+            <th class="con">id</th>
+        </tr>
+      </thead>
+      <tbody class="con">
+        <tr>
+            <td class="con">{body1}</td>
+            <td class="con">{uid1}</td>
+            <td class="con">{nickname1}</td>
+            <td class="con">{id1}</td>
+        </tr>
+         <tr>
+            <td class="con">{body2}</td>
+            <td class="con">{uid2}</td>
+            <td class="con">{nickname2}</td>
+            <td class="con">{id2}</td>
+        </tr>
+         <tr>
+            <td class="con">{body3}</td>
+            <td class="con">{uid3}</td>
+            <td class="con">{nickname3}</td>
+            <td class="con">{id3}</td>
+        </tr>
+         <tr>
+            <td class="con">...</td>
+            <td class="con">...</td>
+            <td class="con">...</td>
+            <td class="con">...</td>
+        </tr>
+      </tbody>
+    </table>
+  <span style="font-family:Comic Sans MS, cursive, sans-serif; color: black; font-size:10pt;"> Please Open the log.txt file <span>
+  <div>
+<body>
+<html>

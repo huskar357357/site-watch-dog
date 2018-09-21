@@ -12,13 +12,14 @@
         </button>
 
         <ul class="nav navbar-nav navbar-left navbar-top-links">
-            <li><a href="http://lx.wm6688.net"><i class="fa fa-home fa-fw"></i> Website</a></li>
+            <li><a href="http://lx.wm6688.net"><i class="fa fa-home fa-fw"></i>Website</a></li>
+            <li><a href="/main"><i class="fa fa-refresh fa-fw"></i>Refresh</a> </li>
         </ul>
 
-        <ul class="nav navbar-right navbar-top-links">
+        <ul class="nav navbar-right navbar-top-links">            
             <li class="dropdown navbar-inverse">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell fa-fw"></i> <b class="caret"></b>
+                    <i class="fa fa-bell fa-fw"></i>Messages<b class="caret"></b> 
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
                     <li>
@@ -34,13 +35,13 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> Admin <b class="caret"></b>
+                    <i class="fa fa-user fa-fw"></i>Admin<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu dropdown-user">                            
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="/login"><i class="fa fa-sign-out fa-fw"></i> Logout </a>
+                    <li><a href="/signout"><i class="fa fa-sign-out fa-fw"></i> Logout </a>
                     </li>
                 </ul>
             </li>
@@ -48,15 +49,32 @@
     </nav>
 
     <div id="page-wrapper">
+<% 
+    var check_rule11 = JSON.parse(storage.getItem('check_rule11'))
+    var check_rule12 = JSON.parse(storage.getItem('check_rule12'))
+    var check_rule2 = JSON.parse(storage.getItem('check_rule2'))
+    var check_ruel3 = JSON.parse(storage.getItem('check_rule3'))
+    var alert_flag = storage.getItem('alert_flag')    
+    if (check_rule11 === null) {
+%>
+    <div class="noCon">
+        <img src="images/loading.gif" alt="connecting">
+        <div></div>
+        <label style="color: white; margin-top: 10px;"> server is disconnected. plz, wait just for a minutes! </label>
+    </div>
+</div>
+    <script> setTimeout(() => { window.location.replace('main') }, 10000) </script>
+<% } else { %>
+
         <div class="row">
             <div class="col-lg-12">
                 <h1 style="padding-top: 20px"> </h1>
-                <h1 class="page-header"><%= alert_flag === true ? '!! Alert !!' : '(: GOOD :)' %></h1>
+                <h1 class="page-header"><%= alert_flag === 'true' ? '!! Alert !!' : '(: GOOD :)' %></h1>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <% if (alert_flag === true) { %>
+                <% if (alert_flag === 'true') { %>
                 <div class="panel panel-red">
                 <% } else {%>
                 <div class="panel panel-green">
@@ -65,7 +83,7 @@
                         After comparing btw real & temorary database, detecting somewhat wrong behavior
                     </div>
                     <div class="panel-body">
-                        <p class="discription"><%= alert_flag === true ? 'The Bad Behavior was detected!' : 'Everything is good!' %></p>
+                        <p class="discription"><%= alert_flag === 'true' ? 'The Bad Behavior was detected!' : 'Everything is good!' %></p>
                         <p><a class="btn btn-success btn-sm" role="button">View Log</a></p>
                     </div>
                 </div>
@@ -95,15 +113,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for (var i = 0; i < check_rule11.length; i ++) { %> 
-                                        <tr>
-                                            <td> <%= i %> </td>
-                                            <td> <%= check_rule11[i].uid %> </td>
-                                            <td> <%= check_rule11[i].nick_name %></td>
-                                            <td> <%= check_rule11[i].hy_money %></td>
-                                            <td> <%= check_rule11[i].sum_cash_amnt %></td>                                
-                                        </tr>
-                                    <% } %>                        
+                                    <% 
+                                        if(check_rule11.length > 0) {
+                                            for (var i = 0; i < check_rule11.length; i ++) { %> 
+                                            <tr>
+                                                <td> <%= i %> </td>
+                                                <td> <%= check_rule11[i].uid %> </td>
+                                                <td> <%= check_rule11[i].nick_name %></td>
+                                                <td> <%= check_rule11[i].hy_money %></td>
+                                                <td> <%= check_rule11[i].sum_cash_amnt %></td>                                
+                                            </tr>
+                                            <% }
+                                        } %>                        
                                 </tbody>
                             </table>
                         </div>
@@ -128,15 +149,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for (var i = 0; i < check_rule12.length; i ++) { %> 
-                                        <tr>
-                                            <td> <%= i %> </td>
-                                            <td> <%= check_rule12[i].uid %> </td>
-                                            <td> <%= check_rule12[i].nick_name %></td>
-                                            <td> <%= check_rule12[i].hy_return_money %></td>
-                                            <td> <%= check_rule12[i].sum_bonus_amnt %></td>                               
-                                        </tr>
-                                    <% } %>                        
+                                    <% 
+                                        if(check_rule12.length > 0) {
+                                            for (var i = 0; i < check_rule12.length; i ++) { %> 
+                                            <tr>
+                                                <td> <%= i %> </td>
+                                                <td> <%= check_rule12[i].uid %> </td>
+                                                <td> <%= check_rule12[i].nick_name %></td>
+                                                <td> <%= check_rule12[i].hy_return_money %></td>
+                                                <td> <%= check_rule12[i].sum_bonus_amnt %></td>                               
+                                            </tr>
+                                            <% }
+                                        } %>                         
                                 </tbody>
                             </table>
                         </div>
@@ -169,16 +193,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for (var i = 0; i < check_rule2.length; i ++) { %> 
-                                        <tr>
-                                            <td> <%= i %></td>
-                                            <td> <%= check_rule2[i].uid %> </td>
-                                            <td> <%= check_rule2[i].bet_log_id %> </td>
-                                            <td> <%= check_rule2[i].nick_name %></td>
-                                            <td> <%= check_rule2[i].bet_amount %></td>
-                                            <td> <%= check_rule2[i].cash_flow_amount %></td>                                
-                                        </tr>
-                                    <% } %>                        
+                                    <% 
+                                        if(check_rule2.length > 0) {
+                                            for (var i = 0; i < check_rule2.length; i ++) { %> 
+                                            <tr>
+                                                <td> <%= i %></td>
+                                                <td> <%= check_rule2[i].uid %> </td>
+                                                <td> <%= check_rule2[i].bet_log_id %> </td>
+                                                <td> <%= check_rule2[i].nick_name %></td>
+                                                <td> <%= check_rule2[i].bet_amount %></td>
+                                                <td> <%= check_rule2[i].cash_flow_amount %></td>                                
+                                            </tr>
+                                            <% } 
+                                        }%>                        
                                 </tbody> 
                             </table>
                         </div>
@@ -203,18 +230,6 @@
                                         <th>amount(cash_flow)</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <% for (var i = 0; i < check_rule3.length; i ++) { %> 
-                                        <tr>
-                                            <td> <%= i %></td>
-                                            <td> <%= check_rule3[i].uid %> </td>
-                                            <td> <%= check_rule3[i].bet_log_id %> </td>
-                                            <td> <%= check_rule3[i].nick_name %></td>
-                                            <td> <%= check_rule3[i].bet_amount %></td>
-                                            <td> <%= check_rule3[i].cash_flow_amount %></td>                                
-                                        </tr>
-                                    <% } %>                        
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -223,4 +238,5 @@
         </div>                                
     </div>
 </div>
+<% } %>
 <%- include layouts/footer.ejs %>

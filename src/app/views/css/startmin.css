@@ -619,3 +619,10 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.noCon {
+  margin: auto;
+  width: 350px;
+  margin-top: 45%;
+  height: 500px;
+}

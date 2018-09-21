@@ -1,3 +1,9 @@
+////////////////////////////////////////////////
+//                                            //
+//         This is my own DB CONNECTION       //
+//                                            //
+////////////////////////////////////////////////
+
 const mysql     = require('mysql')
 const statusStr = require('../.././resources/stats')
 

@@ -1,19 +1,34 @@
+////////////////////////////////////////////////
+//                                            //
+//            This is my own Route            //
+//                                            //
+////////////////////////////////////////////////
+
 const modelState = require('./model.js')
+const util      = require('.././controllers/utility')
+const utilState = util.utilState
+const storage = utilState.localStorage
 
 module.exports = router => { 
+	router.get('/', (req, res) => {
+		var isLogged = storage.getItem('isLogged')
+  		isLogged === 'true' ?  res.redirect('/main') : res.redirect('/login')
+	})
+
   	router.get('/main', (req, res) => {
-    	modelState.cloneData((err) => {
-	    	modelState.setData((err) => {
-	    		modelState.getData(req, res)
-	    	})
-  		})
+  		var isLogged = storage.getItem('isLogged')
+  		isLogged === 'true' ?  res.render('main', {storage: storage}) : res.redirect('/')
+	})
+
+	router.get('/signout', (req, res) => {
+    	res.redirect('/login')
 	})
 
 	router.get('/login', (req, res) => {
-    	modelState.signOut(req, res)
+    	modelState.login(req, res)
 	})
 
-	router.get('/signup', (req, res) => {
-		modelState.signUp(rea, res)
+	router.post('/login', (req, res) => {		
+		modelState.login(req, res)
 	})
-};
+}

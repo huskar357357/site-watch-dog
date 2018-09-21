@@ -1,3 +1,9 @@
+////////////////////////////////////////////////
+//                                            //
+//         This is my own GMail API           //
+//                                            //
+////////////////////////////////////////////////
+
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');

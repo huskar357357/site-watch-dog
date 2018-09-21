@@ -3,11 +3,27 @@
 // 		This is my utility functions lib.     //
 //											  //
 ////////////////////////////////////////////////
-
-// import libs
 const _ = require('lodash')
+var localStorage
 
-// get current time
+
+/****************** Local Storage **********************/
+// init local storage
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage
+  localStorage = new LocalStorage('./scratch')
+}
+
+// Init all local storage value 
+function initLocalStorage(){
+    localStorage.clear()
+    localStorage.setItem('cron_int_val1', 30)   // 30 minutes
+    localStorage.setItem('cron_int_val2', 1440) // one day
+    localStorage.setItem('server_email', "antman357357@gmail.com")
+}
+
+/********************* Date & Time *********************/
+// get before time from now
 function getTimeBeforeNMinutes(minutes){
     var date = new Date()
     date.setMinutes(date.getMinutes() - minutes)
@@ -31,6 +47,7 @@ function getFormatedDate(date){
     return f_year + "-" + f_month + "-" + f_date + " " + f_hours + ":"  + f_minutes + ":" + f_seconds
 }
 
+/******************** Data Structure ******************/
 // get values matching given key from given array
 function getValuesByKey (arry, key) {
 	return _.map(arry, key)
@@ -50,10 +67,10 @@ function getDiffsBTWDics(object, base) {
     function changes(object, base) {
         return _.transform(object, (result, value, key) => {
             if (!_.isEqual(value, base[key]))
-                result[key] = (_.isObject(value) && _.isObject(base[key])) ? changes(value, base[key]) : value;
+                result[key] = (_.isObject(value) && _.isObject(base[key])) ? changes(value, base[key]) : value
         })
     }
-    return changes(object, base);
+    return changes(object, base)
 }
 
 // compare 2 dictionaries and return key array
@@ -63,18 +80,38 @@ function getKeysWithDiffVals(obj1, obj2) {
             result.push(key)
         }
         else if (_.isEqual(obj1[key], obj2[key])) {
-            const resultKeyIndex = result.indexOf(key);
-            result.splice(resultKeyIndex, 1);
+            const resultKeyIndex = result.indexOf(key)
+            result.splice(resultKeyIndex, 1)
         }
-        return result;
-    }, Object.keys(obj2));
-    return diff;
+        return result
+    }, Object.keys(obj2))
+    return diff
 } 
 
+// Mails and Messages Formating
+function formatEMail(){
+    var msg = ''
+    return msg
+}
+
+function formatMessages(){
+
+}
+
+function formatLogs(){
+
+}
+
 // exports const & functions
+module.exports.localStorage             = localStorage
+
 module.exports.getValuesByKey 			= getValuesByKey
 module.exports.getValuesWithQuoteByKey  = getValuesWithQuoteByKey
 module.exports.getTimeBeforeNMinutes  	= getTimeBeforeNMinutes
 module.exports.getKeysWithDiffVals	    = getKeysWithDiffVals
 module.exports.getDiffsBTWDics			= getDiffsBTWDics
 module.exports.getFormatedDate          = getFormatedDate
+module.exports.formatEMail              = formatEMail
+module.exports.formatMessages           = formatMessages
+module.exports.formatLogs               = formatLogs
+module.exports.initLocalStorage         = initLocalStorage

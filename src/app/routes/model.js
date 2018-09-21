@@ -1,20 +1,25 @@
+////////////////////////////////////////////////
+//                                            //
+//          This is my own Main Model         //
+//                                            //
+////////////////////////////////////////////////
+const _         = require('lodash')
+
 const database  = require('.././controllers/database')
 const util      = require('.././controllers/utility')
 const sqls 			= require('./queryString.js')
-const _         = require('lodash')
 
 const mgState   = database.mgState
 const conState  = database.conState  
 
 const utilState = util.utilState
-const st_date  	= '2018-08-01'
+const storage   = utilState.localStorage
 
-function insTime(sql, st_date, end_date){
+function insTime(sql, st_date){
 	return sql.replace('{st_date}', st_date)
 }
 
-
-function cloneData(cb){
+function cloneData(st_date, cb){
 	const conTenant = conState.getDBCon(conState.db_config_tenant)  
   const conClone  = conState.getDBCon(conState.db_config_clone)
   mgState.exQuery(conTenant, insTime(sqls.sql_bet_log, st_date), (err, rslt_tenant) => {  	
@@ -50,7 +55,7 @@ function cloneData(cb){
   })
 }
 
-function setData(cb){
+function setData(st_date, cb){
 	const conTenant = conState.getDBCon(conState.db_config_tenant)
   const conClone  = conState.getDBCon(conState.db_config_clone)  
 	mgState.exQuery(conTenant, insTime(sqls.sql_hy, st_date), (err, rslt_hy) => {	
@@ -84,7 +89,7 @@ function setData(cb){
 	})
 }
 
-function getData(req, res){
+function getData(st_date, cb){
   const conClone  = conState.getDBCon(conState.db_config_clone)
   mgState.exQuery(conClone, sqls.sql_sel_bet_log, (err, rslt_bet_log) => {
     mgState.exQuery(conClone, sqls.sql_sel_hy, (err, rslt_hy) => {
@@ -94,20 +99,14 @@ function getData(req, res){
             mgState.exQuery(conClone, sqls.sql_sel_rule11, (err, rslt_check_rule11) => {
               mgState.exQuery(conClone, sqls.sql_sel_rule12, (err, rslt_check_rule12) => {
                 mgState.exQuery(conClone, sqls.sql_sel_rule2, (err, rslt_check_rule2) => {
-                  mgState.exQuery(conClone, sqls.sql_sel_rule3, (err, rslt_check_rule3) => {
-                    alert_flag = true
-                    res.render('main', {
-                      // bet_log: rslt_bet_log,
-                      // hy: rslt_hy,
-                      // cash_flow: rslt_cash_flow,
-                      // wallet_request: rslt_wallet_request,
-                      // member_bonus: rslt_member_bonus,
-                      check_rule11: rslt_check_rule11,
-                      check_rule12: rslt_check_rule12,
-                      check_rule2: rslt_check_rule3,
-                      check_rule3: rslt_check_rule3,
-                      alert_flag: alert_flag
-                    })
+                  mgState.exQuery(conClone, sqls.sql_sel_rule3, (err, rslt_check_rule3) => {                      
+                    alert_flag = (rslt_check_rule11.length > 0) || (rslt_check_rule12 > 0) || (rslt_check_rule2 > 0) || (rslt_check_rule3 > 0) ? true : false
+                    storage.setItem('alert_flag', JSON.stringify(alert_flag))
+                    storage.setItem('check_rule11', JSON.stringify(rslt_check_rule11))
+                    storage.setItem('check_rule12', JSON.stringify(rslt_check_rule12))
+                    storage.setItem('check_rule2', JSON.stringify(rslt_check_rule3))
+                    storage.setItem('check_rule3', JSON.stringify(rslt_check_rule3))
+                    cb()
                   })
                 })
               })
@@ -120,24 +119,37 @@ function getData(req, res){
 }
 
 function login(req, res){
-  email = 'antman357357@gmail.com'
-  isLogined = true
-  isLogined ? res.render('main', {email: email}) : res.render('login', {isLoginWin: true})
-}
-
-function signUp(req, res){
-  alert("success fully signed", (err) => {
-    res.render('pages/login', {isLoginWin: true})
-  })  
-}
-
-function signOut(req, res){
-  res.render('pages/login', {isLoginWin: true})
+  console.log(req.body)
+  if(req.method === 'POST') {
+    storage.setItem('email', req.body.email)
+    storage.setItem('pwd', req.body.pwd)
+    if(req.body.cb === 'on') {      
+      storage.setItem('isSaveMode', true)
+    }else{
+      storage.setItem('isSaveMode', false)
+    }
+    const conClone  = conState.getDBCon(conState.db_config_clone)
+    mgState.exQuery(conClone, sqls.sql_sel_users, (err, rslt) => {
+      const user = _.find(rslt, {email: req.body.email, pwd: req.body.pwd})  
+      if(_.isEmpty(user)){        
+        res.render('pages/login', {isLoginWin: true, storage: storage})
+      }else{
+        storage.setItem('isLogged', true)
+        res.redirect('/main')
+      }
+    })
+  } else {
+    storage.setItem('isLogged', false)
+    if(storage.getItem('isSaveMode') !== 'true'){
+      storage.removeItem('email')
+      storage.removeItem('pwd')
+    }
+    storage.removeItem('isSaveMode')
+    res.render('pages/login', {isLoginWin: true, storage: storage})
+  }  
 }
 
 module.exports.cloneData = cloneData
 module.exports.setData   = setData
 module.exports.getData   = getData
-module.exports.signUp    = signUp
 module.exports.login     = login
-module.exports.signOut   = signOut

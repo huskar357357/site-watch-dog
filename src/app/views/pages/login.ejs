@@ -1,4 +1,7 @@
 <%- include ../layouts/header.ejs %>
+<%    
+    storage.setItem('isSaveMode', false) 
+%>
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-md-3 col-md-offset-4">
@@ -7,34 +10,34 @@
                             <h3 class="panel-title">Please Sign In</h3>
                         </div>
                         <div class="panel-body">
-                            <form role="form">
+                            <form role="form" action="/login" method="post">
                                 <fieldset>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                        <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus value="<%= storage.getItem('email')%>">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                        <input class="form-control" placeholder="Password" name="pwd" type="password" value="<%= storage.getItem('pwd')%>">
                                     </div>                                                                       
-                                    <% if (isLoginWin === false) { %>
+                                    <% if (isLoginWin === true) { %>
                                         <div class="form-group">
                                             <label></label>                                        
                                         </div>
                                         <div class="form-group">
                                             <label> Remember Me </label> 
                                             <label class="switch">
-                                                <input type="checkbox">                                            
+                                                <input type="checkbox" name="cb">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div> 
-                                        <a href="/login" id="loginBtn" class="btn btn-lg btn-success btn-block"> LOG IN </a>
+                                        <button type="submit" class="btn btn-lg btn-success btn-block"> LOG IN </button>
                                     <% }else{ %>
                                         <div class="form-group">
                                             <label></label>                                        
                                         </div> 
                                         <div class="form-group">
-                                            <input class="form-control" placeholder="Password Again" name="password" type="password" value="">
+                                            <input class="form-control" placeholder="Password Again" id="pwd_again" type="password">
                                         </div> 
-                                        <a href="/login" id="/signup" class="btn btn-lg btn-success btn-block"> SIGN UP </a>
+                                        <button type="submit" class="btn btn-lg btn-success btn-block"> SIGN UP </button>
                                     <% } %>
                                 </fieldset>
                             </form>
@@ -46,6 +49,6 @@
         <script src="../js/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/metisMenu.min.js"></script>
-        <script src="../js/startmin.js"></script>               
+        <script src="../js/startmin.js"></script>                   
     </body>
 </html>

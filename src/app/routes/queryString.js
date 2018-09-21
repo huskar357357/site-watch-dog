@@ -1,3 +1,9 @@
+////////////////////////////////////////////////
+//                                            //
+//        This is my own Query Strings        //
+//                                            //
+////////////////////////////////////////////////
+
 module.exports = {
 	// fetch and save all table data
 	"sql_bet_log": 				"SELECT * FROM bet_log WHERE ((11 <= game_id AND game_id <= 28 AND game_id != 26) OR (66 <= game_id AND game_id <= 80) OR game_id = 34) AND '{st_date}' <= updated_at",
@@ -43,4 +49,12 @@ module.exports = {
 	"sql_sel_rule12": 			"SELECT * FROM check_rule12_rslt",
 	"sql_sel_rule2": 			"SELECT * FROM check_rule2_rslt",
 	"sql_sel_rule3": 			"SELECT * FROM check_rule3_rslt",
+
+	// for admin
+	"sql_sel_users": 			"SELECT * FROM users",
+	"sql_sel_user_by_id": 		"SELECT * FROM users WHERE id = ",	
+	"sql_del_user_by_id": 		"DELETE FROM users WHERE id = ",
+	"sql_del_users": 			"DELETE FROM users",
+	"sql_ins_user":  		  	"INSERT INTO users VALUES ",
+	"sql_up_user_by_id": 		"UPDATE users SET email = {email}, pwd = {pwd} WHERE id = {id}"
 }
