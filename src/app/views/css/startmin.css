@@ -626,3 +626,7 @@ input:checked + .slider:before {
   margin-top: 45%;
   height: 500px;
 }
+
+.visStyle {
+    display: none;
+}

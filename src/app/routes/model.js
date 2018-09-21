@@ -99,12 +99,12 @@ function getData(st_date, cb){
             mgState.exQuery(conClone, sqls.sql_sel_rule11, (err, rslt_check_rule11) => {
               mgState.exQuery(conClone, sqls.sql_sel_rule12, (err, rslt_check_rule12) => {
                 mgState.exQuery(conClone, sqls.sql_sel_rule2, (err, rslt_check_rule2) => {
-                  mgState.exQuery(conClone, sqls.sql_sel_rule3, (err, rslt_check_rule3) => {                      
-                    alert_flag = (rslt_check_rule11.length > 0) || (rslt_check_rule12 > 0) || (rslt_check_rule2 > 0) || (rslt_check_rule3 > 0) ? true : false
+                  mgState.exQuery(conClone, sqls.sql_sel_rule3, (err, rslt_check_rule3) => {                     
+                    alert_flag = (rslt_check_rule11.length > 0) || (rslt_check_rule12.length > 0) || (rslt_check_rule2.length > 0) || (rslt_check_rule3.length > 0) ? true : false
                     storage.setItem('alert_flag', JSON.stringify(alert_flag))
                     storage.setItem('check_rule11', JSON.stringify(rslt_check_rule11))
                     storage.setItem('check_rule12', JSON.stringify(rslt_check_rule12))
-                    storage.setItem('check_rule2', JSON.stringify(rslt_check_rule3))
+                    storage.setItem('check_rule2', JSON.stringify(rslt_check_rule2))
                     storage.setItem('check_rule3', JSON.stringify(rslt_check_rule3))
                     cb()
                   })
@@ -119,7 +119,6 @@ function getData(st_date, cb){
 }
 
 function login(req, res){
-  console.log(req.body)
   if(req.method === 'POST') {
     storage.setItem('email', req.body.email)
     storage.setItem('pwd', req.body.pwd)

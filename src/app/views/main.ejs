@@ -1,4 +1,13 @@
 <%- include layouts/header.ejs %>
+<%
+    var alert_flag = storage.getItem('alert_flag')    
+    var check_rule11 = JSON.parse(storage.getItem('check_rule11'))
+    var check_rule12 = JSON.parse(storage.getItem('check_rule12'))
+    var check_rule2 = JSON.parse(storage.getItem('check_rule2'))    
+    var check_rule3 = JSON.parse(storage.getItem('check_rule3'))
+    var alert_post = JSON.parse(storage.getItem('post'))
+    var messages = JSON.parse(storage.getItem('messages'))
+%>
 <div>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
@@ -21,16 +30,17 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-bell fa-fw"></i>Messages<b class="caret"></b> 
                 </a>
-                <ul class="dropdown-menu dropdown-alerts">
+                <ul class="dropdown-menu dropdown-alerts">                    
+                <% for (var i = 0; i < messages.length; i ++) { %>                         
                     <li>
                         <a href="#">
                             <div>
-                                <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                <span class="pull-right text-muted small">4 minutes ago</span>
+                                <i class="fa fa-envelope fa-fw"></i> <%= messages[i].content%>
+                                <span class="pull-right text-muted small"><%= messages[i].time%></span>
                             </div>
                         </a>
                     </li>
-                    <li class="divider"></li>
+                <%  }  %> 
                 </ul>
             </li>
             <li class="dropdown">
@@ -49,12 +59,7 @@
     </nav>
 
     <div id="page-wrapper">
-<% 
-    var check_rule11 = JSON.parse(storage.getItem('check_rule11'))
-    var check_rule12 = JSON.parse(storage.getItem('check_rule12'))
-    var check_rule2 = JSON.parse(storage.getItem('check_rule2'))
-    var check_ruel3 = JSON.parse(storage.getItem('check_rule3'))
-    var alert_flag = storage.getItem('alert_flag')    
+<%    
     if (check_rule11 === null) {
 %>
     <div class="noCon">
@@ -83,8 +88,12 @@
                         After comparing btw real & temorary database, detecting somewhat wrong behavior
                     </div>
                     <div class="panel-body">
-                        <p class="discription"><%= alert_flag === 'true' ? 'The Bad Behavior was detected!' : 'Everything is good!' %></p>
-                        <p><a class="btn btn-success btn-sm" role="button">View Log</a></p>
+                        <p>
+                            <%
+                                for(var i =0; i < alert_post.length; i++) { %>
+                            <%= alert_post[i] %> <br />
+                            <% } %>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -230,6 +239,21 @@
                                         <th>amount(cash_flow)</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <% 
+                                        if(check_rule3.length > 0) {
+                                            for (var i = 0; i < check_rule3.length; i ++) { %> 
+                                            <tr>
+                                                <td> <%= i %></td>
+                                                <td> <%= check_rule3[i].uid %> </td>
+                                                <td> <%= check_rule3[i].bet_log_id %> </td>
+                                                <td> <%= check_rule3[i].nick_name %></td>
+                                                <td> <%= check_rule3[i].bet_amount %></td>
+                                                <td> <%= check_rule3[i].cash_flow_amount %></td>                                
+                                            </tr>
+                                            <% } 
+                                        }%>                        
+                                </tbody>
                             </table>
                         </div>
                     </div>

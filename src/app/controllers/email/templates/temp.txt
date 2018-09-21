@@ -70,24 +70,30 @@
       </thead>
       <tbody class="con">
         <tr>
-            <td class="con">{body1}</td>
-            <td class="con">{uid1}</td>
-            <td class="con">{nickname1}</td>
-            <td class="con">{id1}</td>
+            <td class="con">{body11}</td>
+            <td class="con">{uid11}</td>
+            <td class="con">{nickname11}</td>
+            <td class="con">{id11}</td>
         </tr>
-         <tr>
+        <tr>
+            <td class="con">{body12}</td>
+            <td class="con">{uid12}</td>
+            <td class="con">{nickname12}</td>
+            <td class="con">{id12}</td>
+        </tr>
+        <tr>
             <td class="con">{body2}</td>
             <td class="con">{uid2}</td>
             <td class="con">{nickname2}</td>
             <td class="con">{id2}</td>
         </tr>
-         <tr>
+        <tr>
             <td class="con">{body3}</td>
             <td class="con">{uid3}</td>
             <td class="con">{nickname3}</td>
             <td class="con">{id3}</td>
-        </tr>
-         <tr>
+        </tr>        
+        <tr>
             <td class="con">...</td>
             <td class="con">...</td>
             <td class="con">...</td>
