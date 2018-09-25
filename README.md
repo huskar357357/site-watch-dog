@@ -1,88 +1,36 @@
-# Project Title
+1. install node npm 
+	command: "npm i"
+2. to deploy server in dev mode.
+	command: "npm run dev"
+3. test client side via web browser
 
-One Paragraph of project description goes here
 
-## Getting Started
+Plz, go to the path: [project folder]/src/app/resources/stats/state.js
+Plz, modify the server and user default info.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+/// Description of the project ///
 
-What things you need to install the software and how to install them
+-- Server Side
+if server is deployed, 2 server side cronjobs are started.
+cronjob1's interval is 5 minutes. (do check data of 30 minutes) 
+cronjob2's interval is 30 minutes. (check data of 24 hours)
 
-```
-Give examples
-```
+And server send checked data and result to the users with JSON format.
+Also, server send email simultaneously to the users.
+Also, send message to the users' browser.
+Also, create and update log.txt file including all the checked results.
 
-### Installing
+-- Clinet Side
+Every user's browser parses JSON data and display result to the screen.
 
-A step by step series of examples that tell you how to get a development env running
+-- Plus
+not yet.
 
-Say what the step will be
 
-```
-Give the example
-```
+/// Checking Rule ///
 
-And repeat
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
-
+/// Default userID & userPWD is in DB.sql
+ID : huskar357@outlook.com
+PWD: hero

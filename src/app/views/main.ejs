@@ -30,17 +30,19 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-bell fa-fw"></i>Messages<b class="caret"></b> 
                 </a>
-                <ul class="dropdown-menu dropdown-alerts">                    
-                <% for (var i = 0; i < messages.length; i ++) { %>                         
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-envelope fa-fw"></i> <%= messages[i].content%>
-                                <span class="pull-right text-muted small"><%= messages[i].time%></span>
-                            </div>
-                        </a>
-                    </li>
-                <%  }  %> 
+                <ul class="dropdown-menu dropdown-alerts">                                    
+                <% 
+                    if(messages !== null){
+                        for (var i = 0; i < messages.length; i ++) { %>                         
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> <%= messages[i].content%>
+                                    <span class="pull-right text-muted small"><%= messages[i].time%></span>
+                                </div>
+                            </a>
+                        </li>
+                <%  }}  %> 
                 </ul>
             </li>
             <li class="dropdown">
@@ -68,7 +70,7 @@
         <label style="color: white; margin-top: 10px;"> server is disconnected. plz, wait just for a minutes! </label>
     </div>
 </div>
-    <script> setTimeout(() => { window.location.replace('main') }, 10000) </script>
+    <script> setTimeout(() => { window.location = '/main' }, 10000) </script>
 <% } else { %>
 
         <div class="row">

@@ -118,33 +118,37 @@ function getData(st_date, cb){
   }) 
 }
 
-function login(req, res){
+function login(req, res){  
   if(req.method === 'POST') {
-    storage.setItem('email', req.body.email)
-    storage.setItem('pwd', req.body.pwd)
-    if(req.body.cb === 'on') {      
-      storage.setItem('isSaveMode', true)
-    }else{
-      storage.setItem('isSaveMode', false)
-    }
+    var email = req.body.email
+    var pwd = req.body.pwd
+    if(req.body.cb === 'on') {
+      res.cookie('isSaveMode', true, { maxAge: 900000, httpOnly: true }) 
+      res.cookie('email', email, { maxAge: 900000, httpOnly: true })
+      res.cookie('pwd', pwd, { maxAge: 900000, httpOnly: true })
+    }        
     const conClone  = conState.getDBCon(conState.db_config_clone)
     mgState.exQuery(conClone, sqls.sql_sel_users, (err, rslt) => {
-      const user = _.find(rslt, {email: req.body.email, pwd: req.body.pwd})  
-      if(_.isEmpty(user)){        
-        res.render('pages/login', {isLoginWin: true, storage: storage})
+      const user = _.find(rslt, {email: email, pwd: pwd})  
+      if(_.isEmpty(user)){
+        res.cookie('isSaveMode', 'false', { maxAge: 900000, httpOnly: true })        
+        res.render('pages/login', {isLoginWin: true, email: email, pwd: pwd})
       }else{
-        storage.setItem('isLogged', true)
+        res.cookie('isLogged', 'true', { maxAge: 900000, httpOnly: true })
+        res.cookie('email', email, { maxAge: 900000, httpOnly: true })
+        res.cookie('pwd', pwd, { maxAge: 900000, httpOnly: true })          
         res.redirect('/main')
       }
     })
   } else {
-    storage.setItem('isLogged', false)
-    if(storage.getItem('isSaveMode') !== 'true'){
-      storage.removeItem('email')
-      storage.removeItem('pwd')
-    }
-    storage.removeItem('isSaveMode')
-    res.render('pages/login', {isLoginWin: true, storage: storage})
+    var isSaveMode = req.cookies.isSaveMode
+    var email = (isSaveMode === 'true') ? req.cookies.email : ""
+    var pwd = (isSaveMode === 'true') ? req.cookies.pwd : ""
+    res.cookie('isLogged', 'false', { maxAge: 900000, httpOnly: true })    
+    res.cookie('email', "", { maxAge: 900000, httpOnly: true })
+    res.cookie('pwd', "", { maxAge: 900000, httpOnly: true })    
+    res.cookie('isSaveMode', 'false', { maxAge: 900000, httpOnly: true })
+    res.render('pages/login', {isLoginWin: true, email: email, pwd: pwd})
   }  
 }
 

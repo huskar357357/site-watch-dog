@@ -18,6 +18,8 @@
     "alert-node": "^1.2.1",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
     "corsify": "^2.1.0",
     "ejs": "^2.5.7",
     "email-templates": "^2.7.1",

@@ -9,7 +9,7 @@ var path    = require('path')
 var localStorage
 
 
-/****************** Local Storage **********************/
+/****************** Local Storage for Server Side **********************/
 // init local storage
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage
@@ -21,7 +21,7 @@ function initLocalStorage(){
     localStorage.clear()
     localStorage.setItem('cron_int_val1', 30)   // 30 minutes
     localStorage.setItem('cron_int_val2', 1440) // one day
-    localStorage.setItem('server_email', "antman357357@gmail.com")
+    localStorage.setItem('server_email', "huskar357@outlook.com")
 }
 
 /********************* Date & Time *********************/

@@ -11,13 +11,13 @@ const storage = utilState.localStorage
 
 module.exports = router => { 
 	router.get('/', (req, res) => {
-		var isLogged = storage.getItem('isLogged')
-  		isLogged === 'true' ?  res.redirect('/main') : res.redirect('/login')
+		var isLogged = req.cookies.isLogged
+	    isLogged === 'true' ?  res.render('main', {isLogged: true, storage: storage}) : res.redirect('/login')	
 	})
 
-  	router.get('/main', (req, res) => {
-  		var isLogged = storage.getItem('isLogged')
-  		isLogged === 'true' ?  res.render('main', {storage: storage}) : res.redirect('/')
+  	router.get('/main', (req, res) => {	
+  		var isLogged = req.cookies.isLogged	
+  		isLogged === 'true' ?  res.render('main', {isLogged: true, storage: storage}) : res.redirect('/login')
 	})
 
 	router.get('/signout', (req, res) => {
